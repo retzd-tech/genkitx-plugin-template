@@ -2,27 +2,17 @@ import { genkitPlugin } from "@genkit-ai/core";
 import { defineFlow } from "@genkit-ai/flow";
 
 import { PluginOptions } from "./interfaces";
-import { hnswIndexerAction, hnswRetrieverAction } from "./actions";
-import { indexerFlowConfig, retrieverflowConfig } from "./config";
-import { checkApiKey } from "./utilities";
-import { PLUGIN_NAME_INDEXER, PLUGIN_NAME_RETRIEVER } from "./constants";
+import { pluginAction } from "./actions";
+import { flowConfig } from "./config";
+import { isApiKeyExist } from "./utilities";
+import { PLUGIN_NAME } from "./constants";
 
-export const hnswIndexer = genkitPlugin(
-  PLUGIN_NAME_INDEXER,
+export const devfestDepokPlugin = genkitPlugin(
+  PLUGIN_NAME,
   async (pluginOptions: PluginOptions) => {
-    checkApiKey(pluginOptions);
-    defineFlow(indexerFlowConfig, (flowOptions) =>
-      hnswIndexerAction(flowOptions, pluginOptions)
-    );
-  }
-);
-
-export const hnswRetriever = genkitPlugin(
-  PLUGIN_NAME_RETRIEVER,
-  async (pluginOptions: PluginOptions) => {
-    checkApiKey(pluginOptions);
-    defineFlow(retrieverflowConfig, (flowOptions) =>
-      hnswRetrieverAction(flowOptions, pluginOptions)
+    isApiKeyExist(pluginOptions);
+    defineFlow(flowConfig, (flowOptions) =>
+      pluginAction(flowOptions, pluginOptions)
     );
   }
 );

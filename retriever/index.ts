@@ -1,54 +1,27 @@
-import { GoogleGenerativeAIEmbeddings } from "@langchain/google-genai";
-import { HNSWLib } from "langchain/vectorstores";
 import { generate } from "@genkit-ai/ai";
 import { geminiPro as geminiProModel } from "@genkit-ai/googleai";
 
-import { RetrieverFlowOptions, PluginOptions } from "../interfaces";
+import { FlowOptions, PluginOptions, History } from "../interfaces";
 
-const generateHistories = (contexts: any[]) => {
-  const histories: any[] = [];
-  contexts.forEach((context: string) => {
-    histories.push({
-      role: "user",
-      content: [{ text: context }],
-    });
-    histories.push({
-      role: "model",
-      content: [{ text: "Understood" }],
-    });
+const getHistories = () => {
+  const histories : History[] = [];
+  histories.push({
+    role: "user",
+    content: [{ text: "This is the Generative AI plugin I made at GDG Depok Devfest 2024" }],
+  });
+  histories.push({
+    role: "model",
+    content: [{ text: "That's amazing!" }],
   });
   return histories;
 };
 
-const initializeStore = async (
-  vectorStorePath: string,
-  apiKey: string | undefined
-) => {
-  const store = await HNSWLib.load(
-    vectorStorePath,
-    new GoogleGenerativeAIEmbeddings({
-      apiKey,
-    })
-  );
-  return store;
-};
-
-const getContextBasedOnPrompt = async (store: HNSWLib, prompt: string) => {
-  const data = await store.similaritySearch(prompt, 1);
-  const context: string[] = [];
-  data.forEach((item: { pageContent: any }, i: any) => {
-    context.push(`${item.pageContent}`);
-  });
-  return context;
-};
-
-const retrieveResponseWithVector = async (
-  flowOptions: RetrieverFlowOptions,
+export const retrieveResponse = async (
+  flowOptions: FlowOptions,
   pluginOptions: PluginOptions
 ) => {
   const {
     prompt,
-    indexPath,
     temperature,
     maxOutputTokens,
     topK,
@@ -57,9 +30,8 @@ const retrieveResponseWithVector = async (
   } = flowOptions;
   const { apiKey } = pluginOptions;
 
-  const store = await initializeStore(indexPath, apiKey);
-  const context = await getContextBasedOnPrompt(store, prompt);
-  const histories = generateHistories(context);
+  // you can put api key check here if needed
+
   const retrievalConfig = {
     temperature: temperature || 0.1,
     maxOutputTokens: maxOutputTokens || 500,
@@ -67,6 +39,9 @@ const retrieveResponseWithVector = async (
     topP: topP || 0,
     stopSequences: stopSequences || [],
   };
+
+  const histories = getHistories();
+
   const promptResult = await generate({
     history: histories,
     prompt,
@@ -76,5 +51,3 @@ const retrieveResponseWithVector = async (
 
   return promptResult.text();
 };
-
-export { retrieveResponseWithVector };

@@ -12,7 +12,7 @@ export const throwError = (status: StatusName, message: string) => {
   });
 };
 
-export const checkApiKey = (pluginOptions: PluginOptions) => {
+export const isApiKeyExist = (pluginOptions: PluginOptions) => {
   const { apiKey } = pluginOptions;
   if (!apiKey) return throwError(ERROR_INVALID_ARGUMENT, ERROR_NO_API_KEY);
 };

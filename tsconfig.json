@@ -1,7 +1,6 @@
 {
   "compileOnSave": true,
   "include": [
-    "indexer",
     "retriever",
     "config",
     "types",
@@ -10,7 +9,6 @@
     "constants",
     "interfaces",
     "utilities",
-    "*.test.ts",
   ],
   "compilerOptions": {
     "module": "commonjs",
@@ -21,6 +19,9 @@
     "target": "es2017",
     "skipLibCheck": true,
     "esModuleInterop": true,
-    "types": ["jest", "node"]
+    "types": ["jest", "node"],
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "allowSyntheticDefaultImports": true
   }
 }

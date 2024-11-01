@@ -1,6 +1,14 @@
-export interface RetrieverFlowOptions {
+interface HistoryContent {
+  text: string;
+}
+
+export interface History {
+  role: 'user' | 'model';
+  content: HistoryContent[];
+}
+
+export interface FlowOptions {
   prompt: string;
-  indexPath: string;
   temperature?: number;
   maxOutputTokens?: number;
   topK?: number;

@@ -1,28 +1,15 @@
-import { saveVectorIndexer } from "./../indexer";
-import { retrieveResponseWithVector } from "./../retriever";
+import { retrieveResponse } from "./../retriever";
 import {
-  RetrieverFlowOptions,
+  FlowOptions,
   PluginOptions,
-  IndexerFlowOptions,
 } from "./../interfaces";
 
-export const hnswIndexerAction = async (
-  flowOptions: IndexerFlowOptions,
+export const pluginAction = async (
+  flowOptions: FlowOptions,
   pluginOptions: PluginOptions
 ) => {
   try {
-    return await saveVectorIndexer(flowOptions, pluginOptions);
-  } catch (error) {
-    return `Vector index saving error, ${error}`;
-  }
-};
-
-export const hnswRetrieverAction = async (
-  flowOptions: RetrieverFlowOptions,
-  pluginOptions: PluginOptions
-) => {
-  try {
-    return await retrieveResponseWithVector(flowOptions, pluginOptions);
+    return await retrieveResponse(flowOptions, pluginOptions);
   } catch (error) {
     return `Error generating prompt response, ${error}`;
   }
