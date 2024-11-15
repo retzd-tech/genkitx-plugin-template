@@ -7,7 +7,7 @@ const getHistories = () => {
   const histories : History[] = [];
   histories.push({
     role: "user",
-    content: [{ text: "This is the Generative AI plugin I made at GDG Depok Devfest 2024" }],
+    content: [{ text: "This is the Generative AI plugin I made at GDG Cloud Surabaya Devfest 2024" }],
   });
   histories.push({
     role: "model",

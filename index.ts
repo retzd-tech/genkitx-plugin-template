@@ -7,7 +7,7 @@ import { flowConfig } from "./config";
 import { isApiKeyExist } from "./utilities";
 import { PLUGIN_NAME } from "./constants";
 
-export const devfestDepokPlugin = genkitPlugin(
+export const devfestSurabayaPlugin = genkitPlugin(
   PLUGIN_NAME,
   async (pluginOptions: PluginOptions) => {
     isApiKeyExist(pluginOptions);
