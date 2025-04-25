@@ -7,7 +7,7 @@ const getHistories = () => {
   const histories : History[] = [];
   histories.push({
     role: "user",
-    content: [{ text: "This is the Generative AI plugin I made at GDG Jakarta Devfest 2024" }],
+    content: [{ text: "This is the Firebase Genkit Generative AI plugin made at Firebase Genkit Workshop in Indonesia 2025" }],
   });
   histories.push({
     role: "model",
@@ -44,8 +44,8 @@ export const retrieveResponse = async (
 
   const promptResult = await generate({
     history: histories,
-    prompt,
-    model: geminiProModel,
+    prompt: `just answer the question based on the provided information, no ask or complain, this is the prompt : ${prompt}`,
+    model: "googleai/gemini-1.5-pro-latest",
     config: retrievalConfig,
   });
 

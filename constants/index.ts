@@ -1,5 +1,5 @@
-export const PLUGIN_NAME = "devfestJakartaPlugin";
-export const FLOW_NAME = "devfestJakartaPlugin";
+export const PLUGIN_NAME = "myCustomPlugin";
+export const FLOW_NAME = "myCustomPlugin";
 export const ERROR_NO_API_KEY =
   "Must supply either `options.apiKey` or set `GOOGLE_API_KEY` environment variable.";
 export const ERROR_INVALID_ARGUMENT = "INVALID_ARGUMENT";
